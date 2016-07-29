@@ -1,0 +1,1272 @@
+<% if session[:id] %>
+  <!-- collapse menu button -->
+  <div id="hide-menu" class="btn-header pull-right">
+      <span> <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
+  </div>
+  <!-- end collapse menu -->
+  <!-- #MOBILE -->
+  <!-- Top menu profile link : this shows only when top menu is active -->
+  <ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
+      <li class="">
+          <a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown">
+              <img src="~/vendor/assets/images/smart/avatars/sunny.png" alt="John Doe" class="online" />
+          </a>
+          <ul class="dropdown-menu pull-right">
+              <li>
+                  <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0"><i class="fa fa-cog"></i> Setting</a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                  <a href="#" class="padding-10 padding-top-0 padding-bottom-0"> <i class="fa fa-user"></i> Profile</a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                  <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="toggleShortcut"><i class="fa fa-arrow-down"></i> <>S</>hortcut</a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                  <a href="javascript:void(0);" class="padding-10 padding-top-0 padding-bottom-0" data-action="launchFullscreen"><i class="fa fa-arrows-alt"></i> Full <>S</>creen</a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                  <a href="@Url.Action("login", "account")" class="padding-10 padding-top-5 padding-bottom-5" data-action="userLogout"><i class="fa fa-sign-out fa-lg"></i> <strong><>L</>ogout</strong></a>
+              </li>
+          </ul>
+      </li>
+  </ul>
+
+  <!-- logout button -->
+  <div id="logout" class="btn-header transparent pull-right">
+      <span> <a href="@Url.Action("login", "account")" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
+  </div>
+  <!-- end logout button -->
+  <!-- search mobile button (this is hidden till mobile view port) -->
+  <div id="search-mobile" class="btn-header transparent pull-right">
+      <span> <a href="javascript:void(0)" title="Search"><i class="fa fa-search"></i></a> </span>
+  </div>
+  <!-- end search mobile button -->
+  <!-- input: search field -->
+  <form action="@Url.Action("search", "misc")" class="header-search pull-right">
+      <input id="search-fld" type="text" name="param" placeholder="Find reports and more" data-autocomplete='["ActionScript","AppleScript","Asp","BASIC","C","C++","Clojure","COBOL","ColdFusion","Erlang","Fortran","Groovy","Haskell","Java","JavaScript","Lisp","Perl","PHP","Python","Ruby","Scala","Scheme"]'>
+      <button type="submit">
+          <i class="fa fa-search"></i>
+      </button>
+      <a href="javascript:void(0);" id="cancel-search-js" title="Cancel Search"><i class="fa fa-times"></i></a>
+  </form>
+  <!-- end input: search field -->
+  <!-- fullscreen button -->
+  <div id="fullscreen" class="btn-header transparent pull-right">
+      <span> <a href="javascript:void(0);" data-action="launchFullscreen" title="Full Screen"><i class="fa fa-arrows-alt"></i></a> </span>
+  </div>
+  <!-- end fullscreen button -->
+  <!-- #Voice Command: Start Speech -->
+  <div id="speech-btn" class="btn-header transparent pull-right hidden-sm hidden-xs">
+      <div>
+          <a href="javascript:void(0)" title="Voice Command" data-action="voiceCommand"><i class="fa fa-microphone"></i></a>
+          <div class="popover bottom">
+              <div class="arrow"></div>
+              <div class="popover-content">
+                  <h4 class="vc-title">Voice command activated <br><small>Please speak clearly into the mic</small></h4>
+                  <h4 class="vc-title-error text-center">
+                      <i class="fa fa-microphone-slash"></i> Voice command failed
+                      <br><small class="txt-color-red">Must <strong>"Allow"</strong> Microphone</small>
+                      <br><small class="txt-color-red">Must have <strong>Internet Connection</strong></small>
+                  </h4>
+                  <a href="javascript:void(0);" class="btn btn-success" onclick="commands.help()">See Commands</a>
+                  <a href="javascript:void(0);" class="btn bg-color-purple txt-color-white" onclick="$('#speech-btn .popover').fadeOut(50);">Close Popup</a>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- end voice command -->
+  <!-- multiple lang dropdown : find all flags in the flags page -->
+  <ul class="header-dropdown-list hidden-xs">
+      <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/content/img/blank.gif" class="flag flag-us" alt="United States"> <span> English (US) </span> <i class="fa fa-angle-down"></i> </a>
+          <ul class="dropdown-menu pull-right">
+              <li class="active">
+                  <a href="javascript:void(0);"><img src="~/content/img/blank.gif" class="flag flag-us" alt="United States"> English (US)</a>
+              </li>
+              <li>
+                  <a href="javascript:void(0);"><img src="~/content/img/blank.gif" class="flag flag-fr" alt="France"> Français</a>
+              </li>
+              <li>
+                  <a href="javascript:void(0);"><img src="~/content/img/blank.gif" class="flag flag-es" alt="Spanish"> Español</a>
+              </li>
+              <li>
+                  <a href="javascript:void(0);"><img src="~/content/img/blank.gif" class="flag flag-de" alt="German"> Deutsch</a>
+              </li>
+              <li>
+                  <a href="javascript:void(0);"><img src="~/content/img/blank.gif" class="flag flag-jp" alt="Japan"> 日本語</a>
+              </li>
+              <li>
+                  <a href="javascript:void(0);"><img src="~/content/img/blank.gif" class="flag flag-cn" alt="China"> 中文</a>
+              </li>
+              <li>
+                  <a href="javascript:void(0);"><img src="~/content/img/blank.gif" class="flag flag-it" alt="Italy"> Italiano</a>
+              </li>
+              <li>
+                  <a href="javascript:void(0);"><img src="~/content/img/blank.gif" class="flag flag-pt" alt="Portugal"> Portugal</a>
+              </li>
+              <li>
+                  <a href="javascript:void(0);"><img src="~/content/img/blank.gif" class="flag flag-ru" alt="Russia"> Русский язык</a>
+              </li>
+              <li>
+                  <a href="javascript:void(0);"><img src="~/content/img/blank.gif" class="flag flag-kr" alt="Korea"> 한국어</a>
+              </li>
+
+          </ul>
+      </li>
+  </ul>
+  <!-- end multiple lang -->
+<% else %>
+  <% content_for :new_account do %>
+    <span id="extr-page-header-space"> <span class="hidden-mobile">Need an account?</span> <a href="@Url.Action("register", "account")" class="btn btn-danger">Create account</a> </span>
+  <% end %>
+
+<% end %>
+
+
+
+
+
+
+
+
+
+
+<script data-pace-options='{ "restartOnRequestAfter": true }' src="js/plugin/pace/pace.min.js"></script>
+
+    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+      if (!window.jQuery) {
+        document.write('<script src="js/libs/jquery-2.1.1.min.js"><\/script>');
+      }
+    </script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script>
+      if (!window.jQuery.ui) {
+        document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+      }
+    </script>
+
+    <!-- IMPORTANT: APP CONFIG -->
+    <script src="js/app.config.js"></script>
+
+    <!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
+    <script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> 
+
+    <!-- BOOTSTRAP JS -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- CUSTOM NOTIFICATION -->
+    <script src="js/notification/SmartNotification.min.js"></script>
+
+    <!-- JARVIS WIDGETS -->
+    <script src="js/smartwidgets/jarvis.widget.min.js"></script>
+
+    <!-- EASY PIE CHARTS -->
+    <script src="js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
+
+    <!-- SPARKLINES -->
+    <script src="js/plugin/sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- JQUERY VALIDATE -->
+    <script src="js/plugin/jquery-validate/jquery.validate.min.js"></script>
+
+    <!-- JQUERY MASKED INPUT -->
+    <script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+
+    <!-- JQUERY SELECT2 INPUT -->
+    <script src="js/plugin/select2/select2.min.js"></script>
+
+    <!-- JQUERY UI + Bootstrap Slider -->
+    <script src="js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
+
+    <!-- browser msie issue fix -->
+    <script src="js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
+
+    <!-- FastClick: For mobile devices -->
+    <script src="js/plugin/fastclick/fastclick.min.js"></script>
+
+    <!--[if IE 8]>
+
+    <h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+
+    <![endif]-->
+
+    <!-- Demo purpose only -->
+    <script src="js/demo.min.js"></script>
+
+    <!-- MAIN APP JS FILE -->
+    <script src="js/app.min.js"></script>
+
+    <!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
+    <!-- Voice command : plugin -->
+    <script src="js/speech/voicecommand.min.js"></script>
+
+    <!-- SmartChat UI : plugin -->
+    <script src="js/smart-chat-ui/smart.chat.ui.min.js"></script>
+    <script src="js/smart-chat-ui/smart.chat.manager.min.js"></script>
+
+    <!-- PAGE RELATED PLUGIN(S) 
+    <script src="..."></script>-->
+
+    <script type="text/javascript">
+    
+    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+    
+    $(document).ready(function() {
+      
+      pageSetUp();
+      
+      var pagefunction = function() {
+
+          /*jslint smarttabs:true */
+        var colorful_style = [{
+      
+          "featureType" : "landscape",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "transit",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi.park",
+          "elementType" : "labels",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi.park",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "color" : "#d3d3d3"
+          }, {
+            "visibility" : "on"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "geometry.stroke",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "landscape",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#b1bc39"
+          }]
+        }, {
+          "featureType" : "landscape.man_made",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#ebad02"
+          }]
+        }, {
+          "featureType" : "water",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#416d9f"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "labels.text.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#000000"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "labels.text.stroke",
+          "stylers" : [{
+            "visibility" : "off"
+          }, {
+            "color" : "#ffffff"
+          }]
+        }, {
+          "featureType" : "administrative",
+          "elementType" : "labels.text.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#000000"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#ffffff"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "labels.icon",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "water",
+          "elementType" : "labels",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "color" : "#ebad02"
+          }]
+        }, {
+          "featureType" : "poi.park",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "color" : "#8ca83c"
+          }]
+        }];
+      
+        // Grey Scale
+        var greyscale_style = [{
+          "featureType" : "road.highway",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "landscape",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "transit",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi.park",
+          "stylers" : [{
+            "visibility" : "on"
+          }]
+        }, {
+          "featureType" : "poi.park",
+          "elementType" : "labels",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi.park",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "color" : "#d3d3d3"
+          }, {
+            "visibility" : "on"
+          }]
+        }, {
+          "featureType" : "poi.medical",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi.medical",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "geometry.stroke",
+          "stylers" : [{
+            "color" : "#cccccc"
+          }]
+        }, {
+          "featureType" : "water",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#cecece"
+          }]
+        }, {
+          "featureType" : "road.local",
+          "elementType" : "labels.text.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#808080"
+          }]
+        }, {
+          "featureType" : "administrative",
+          "elementType" : "labels.text.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#808080"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#fdfdfd"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "labels.icon",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "water",
+          "elementType" : "labels",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "color" : "#d2d2d2"
+          }]
+        }];
+      
+        // Black & White
+        var monochrome_style = [{
+          "featureType" : "road.highway",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "landscape",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "transit",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi.park",
+          "elementType" : "labels",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi.park",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "color" : "#d3d3d3"
+          }, {
+            "visibility" : "on"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "geometry.stroke",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "landscape",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#ffffff"
+          }]
+        }, {
+          "featureType" : "water",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#cecece"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "labels.text.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#000000"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "labels.text.stroke",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#ffffff"
+          }]
+        }, {
+          "featureType" : "administrative",
+          "elementType" : "labels.text.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#000000"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#000000"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "labels.icon",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "water",
+          "elementType" : "labels",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }];
+      
+        // Retro
+        var metro_style = [{
+          "featureType" : "transit",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi.park",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "color" : "#d3d3d3"
+          }, {
+            "visibility" : "on"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "geometry.stroke",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "landscape",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#eee8ce"
+          }]
+        }, {
+          "featureType" : "water",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#b8cec9"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "labels.text.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#000000"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "labels.text.stroke",
+          "stylers" : [{
+            "visibility" : "off"
+          }, {
+            "color" : "#ffffff"
+          }]
+        }, {
+          "featureType" : "administrative",
+          "elementType" : "labels.text.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#000000"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#ffffff"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "geometry.stroke",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "labels.icon",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "water",
+          "elementType" : "labels",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "color" : "#d3cdab"
+          }]
+        }, {
+          "featureType" : "poi.park",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "color" : "#ced09d"
+          }]
+        }, {
+          "featureType" : "poi",
+          "elementType" : "labels",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }];
+      
+        // Night
+        var nightvision_style = [{
+          "featureType" : "landscape",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "transit",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi.park",
+          "elementType" : "labels",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi.park",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "color" : "#d3d3d3"
+          }, {
+            "visibility" : "on"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "geometry.stroke",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "landscape",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "hue" : "#0008ff"
+          }, {
+            "lightness" : -75
+          }, {
+            "saturation" : 10
+          }]
+        }, {
+          "elementType" : "geometry.stroke",
+          "stylers" : [{
+            "color" : "#1f1d45"
+          }]
+        }, {
+          "featureType" : "landscape.natural",
+          "stylers" : [{
+            "color" : "#1f1d45"
+          }]
+        }, {
+          "featureType" : "water",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#01001f"
+          }]
+        }, {
+          "elementType" : "labels.text.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#e7e8ec"
+          }]
+        }, {
+          "elementType" : "labels.text.stroke",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#151348"
+          }]
+        }, {
+          "featureType" : "administrative",
+          "elementType" : "labels.text.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#f7fdd9"
+          }]
+        }, {
+          "featureType" : "administrative",
+          "elementType" : "labels.text.stroke",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#01001f"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#316694"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "labels.icon",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "water",
+          "elementType" : "labels",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "color" : "#1a153d"
+          }]
+      
+        }];
+      
+        // Night Light
+        var nightvision_highlight_style = [{
+          "elementType" : "geometry",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "hue" : "#232a57"
+          }]
+        }, {
+          "featureType" : "road.highway",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "landscape",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "hue" : "#0033ff"
+          }, {
+            "saturation" : 13
+          }, {
+            "lightness" : -77
+          }]
+        }, {
+          "featureType" : "landscape",
+          "elementType" : "geometry.stroke",
+          "stylers" : [{
+            "color" : "#4657ab"
+          }]
+        }, {
+          "featureType" : "transit",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "geometry.stroke",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "water",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#0d0a1f"
+          }]
+        }, {
+          "elementType" : "labels.text.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#d2cfe3"
+          }]
+        }, {
+          "elementType" : "labels.text.stroke",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#0d0a1f"
+          }]
+        }, {
+          "featureType" : "administrative",
+          "elementType" : "labels.text.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#ffffff"
+          }]
+        }, {
+          "featureType" : "administrative",
+          "elementType" : "labels.text.stroke",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#0d0a1f"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#ff9910"
+          }]
+        }, {
+          "featureType" : "road.local",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#4657ab"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "labels.icon",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "water",
+          "elementType" : "labels",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "color" : "#232a57"
+          }]
+        }, {
+          "featureType" : "poi.park",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "color" : "#232a57"
+          }]
+        }, {
+          "featureType" : "poi",
+          "elementType" : "labels",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }];
+      
+        // Papiro
+        var old_paper_style = [{
+          "elementType" : "geometry",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#f2e48c"
+          }]
+        }, {
+          "featureType" : "road.highway",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "transit",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi.park",
+          "elementType" : "labels",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi.park",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "color" : "#d3d3d3"
+          }, {
+            "visibility" : "on"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "geometry.stroke",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "landscape",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#f2e48c"
+          }]
+        }, {
+          "featureType" : "landscape",
+          "elementType" : "geometry.stroke",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#592c00"
+          }]
+        }, {
+          "featureType" : "water",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#a77637"
+          }]
+        }, {
+          "elementType" : "labels.text.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#592c00"
+          }]
+        }, {
+          "elementType" : "labels.text.stroke",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#f2e48c"
+          }]
+        }, {
+          "featureType" : "administrative",
+          "elementType" : "labels.text.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#592c00"
+          }]
+        }, {
+          "featureType" : "administrative",
+          "elementType" : "labels.text.stroke",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#f2e48c"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#a5630f"
+          }]
+        }, {
+          "featureType" : "road.highway",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "on"
+          }, {
+            "color" : "#592c00"
+          }]
+        }, {
+          "featureType" : "road",
+          "elementType" : "labels.icon",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "water",
+          "elementType" : "labels",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi",
+          "elementType" : "geometry.fill",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }, {
+          "featureType" : "poi",
+          "elementType" : "labels",
+          "stylers" : [{
+            "visibility" : "off"
+          }]
+        }];
+      
+        // One color - Change the hue value for your desired color
+        var mono_color_style = [{
+          "stylers" : [{
+            "hue" : "#ff00aa"
+          }, {
+            "saturation" : 1
+          }, {
+            "lightness" : 1
+          }]
+        }];
+      
+        /*
+         * Google Maps Initialize
+         */
+      
+      
+        
+          $this = $("#map_canvas");
+          $zoom_level = ($this.data("gmap-zoom") || 5);
+          $data_lat = ($this.data("gmap-lat") || 29.895883);
+          $data_lng = ($this.data("gmap-lng") || -80.650635);
+          $xml_src = ($this.data("gmap-src") || "xml/gmap/pins.xml");
+      
+          var greyStyleMap = new google.maps.StyledMapType(greyscale_style, {
+              name: "Greyscale"
+          }),
+          monoChromeStyleMap = new google.maps.StyledMapType(monochrome_style, {
+              name: "Mono Chrome"
+          }),
+          metroStyleMap = new google.maps.StyledMapType(metro_style, {
+              name: "Metro"
+          }),
+          nightvisionStyleMap = new google.maps.StyledMapType(nightvision_style, {
+              name: "Nightvision"
+          }),
+          nvisionhstyleMap = new google.maps.StyledMapType(nightvision_highlight_style, {
+              name: "Nightvision Light"
+          }),
+          oPaperStyleMap = new google.maps.StyledMapType(old_paper_style, {
+              name: "Old Paper"
+          }),
+          colorfulStyleMap = new google.maps.StyledMapType(colorful_style, {
+              name: "Colorful"
+          }),
+          monoColorStyleMap = new google.maps.StyledMapType(mono_color_style, {
+              name: "One Color"
+          });
+      
+          function demoLoadAttribute() {
+      
+              var centerLatLng = new google.maps.LatLng($data_lat, $data_lng),
+              mapOptions = {
+                  zoom: $zoom_level,
+                  center: centerLatLng,
+                  //disableDefaultUI: true,
+                  //mapTypeId : google.maps.MapTypeId.ROADMAP
+                  mapTypeControlOptions: {
+                      mapTypeIds: [google.maps.MapTypeId.TERRAIN, 'colorful_style', 'greyscale_style',
+                          'monochrome_style', 'metro_style', 'nightvision_style', 'nightvision_highlight_style',
+                          'old_paper_style', 'mono_color_style'
+                      ]
+                  }
+              },
+      
+              bounds = new google.maps.LatLngBounds(),
+              infowindow = new google.maps.InfoWindow(),
+              map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+      
+              map.mapTypes.set('colorful_style', colorfulStyleMap);
+              map.mapTypes.set('greyscale_style', greyStyleMap);
+              map.mapTypes.set('monochrome_style', monoChromeStyleMap);
+              map.mapTypes.set('metro_style', metroStyleMap);
+              map.mapTypes.set('nightvision_style', nightvisionStyleMap);
+              map.mapTypes.set('nightvision_highlight_style', nvisionhstyleMap);
+              map.mapTypes.set('old_paper_style', oPaperStyleMap);
+              map.mapTypes.set('mono_color_style', monoColorStyleMap);
+      
+              //map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+              map.setMapTypeId('metro_style');
+              
+          } // end demoLoadAttribute
+      
+          // grey
+          function generate_map_1() {
+      
+              var mapOptions = {
+                  center: new google.maps.LatLng(41.38155, 2.13752),
+                  zoom: 12,
+              };
+              map = new google.maps.Map(document.getElementById('map_canvas1'), mapOptions);
+      
+              // Setup skin for the map
+              map.mapTypes.set('greyscale_style', greyStyleMap);
+              map.setMapTypeId('greyscale_style');
+      
+          }
+      
+          // colorful
+          function generate_map_2() {
+      
+              var mapOptions = {
+                  center: new google.maps.LatLng(41.38155, 2.13752),
+                  zoom: 12,
+              };
+              map = new google.maps.Map(document.getElementById('map_canvas2'), mapOptions);
+      
+              // Setup skin for the map
+              map.mapTypes.set('colorful_style', colorfulStyleMap);
+              map.setMapTypeId('colorful_style');
+      
+          }
+      
+          // colorful
+          function generate_map_3() {
+      
+              var mapOptions = {
+                  center: new google.maps.LatLng(41.38155, 2.13752),
+                  zoom: 12,
+              };
+              map = new google.maps.Map(document.getElementById('map_canvas3'), mapOptions);
+      
+              // Setup skin for the map
+              map.mapTypes.set('nightvision_style', nvisionhstyleMap);
+              map.setMapTypeId('nightvision_style');
+      
+          }
+      
+          // Night Light
+          function generate_map_4() {
+      
+              var mapOptions = {
+                  center: new google.maps.LatLng(41.38155, 2.13752),
+                  zoom: 12,
+              };
+              map = new google.maps.Map(document.getElementById('map_canvas4'), mapOptions);
+      
+              // Setup skin for the map
+              map.mapTypes.set('nightvision_highlight_style', nvisionhstyleMap);
+              map.setMapTypeId('nightvision_highlight_style');
+      
+          }
+      
+          // Paper Style
+          function generate_map_5() {
+      
+              var mapOptions = {
+                  center: new google.maps.LatLng(41.38155, 2.13752),
+                  zoom: 12,
+              };
+              map = new google.maps.Map(document.getElementById('map_canvas5'), mapOptions);
+      
+              // Setup skin for the map
+              map.mapTypes.set('old_paper_style', oPaperStyleMap);
+              map.setMapTypeId('old_paper_style');
+      
+          }
+      
+          // One Color Style
+          function generate_map_6() {
+      
+              var mapOptions = {
+                  center: new google.maps.LatLng(41.38155, 2.13752),
+                  zoom: 12,
+              };
+              map = new google.maps.Map(document.getElementById('map_canvas6'), mapOptions);
+      
+              // Setup skin for the map
+              map.mapTypes.set('mono_color_style', monoColorStyleMap);
+              map.setMapTypeId('mono_color_style');
+      
+          }
+      
+          // Monochrome Style
+          function generate_map_8() {
+      
+              var mapOptions = {
+                  center: new google.maps.LatLng(41.38155, 2.13752),
+                  zoom: 12,
+              };
+              map = new google.maps.Map(document.getElementById('map_canvas8'), mapOptions);
+      
+              // Setup skin for the map
+              map.mapTypes.set('monochrome_style', monoChromeStyleMap);
+              map.setMapTypeId('monochrome_style');
+      
+          }
+      
+          // Metro Style
+          function generate_map_7() {
+      
+              var mapOptions = {
+                  center: new google.maps.LatLng(41.38155, 2.13752),
+                  zoom: 12,
+              };
+              map = new google.maps.Map(document.getElementById('map_canvas7'), mapOptions);
+      
+              // Setup skin for the map
+              map.mapTypes.set('metro_style', metroStyleMap);
+              map.setMapTypeId('metro_style');
+      
+          }
+      
+          demoLoadAttribute();
+          generate_map_1();
+          generate_map_2();
+          generate_map_3();
+          generate_map_4();
+          generate_map_5();
+          generate_map_6();
+          generate_map_7();
+          generate_map_8();
+      
+          
+      };
+            
+      $(window).unbind('gMapsLoaded');
+      $(window).bind('gMapsLoaded', pagefunction);
+      window.loadGoogleMaps();
+    })
+
+    </script>
+
+    <!-- Your GOOGLE ANALYTICS CODE Below -->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
+        _gaq.push(['_trackPageview']);
+      
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+

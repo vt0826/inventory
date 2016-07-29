@@ -1,0 +1,104 @@
+<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+      <div class="well no-padding">
+        <form action="/users" method="POST" id="smart-form-register" class="smart-form client-form">
+          <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+          <input name="user[store_name]" value= <%= current_store.organization %> type="hidden">
+          <input name="user[organization_id]" value= <%= current_store.id %> type="hidden">
+
+          <header>Add users</header>
+            <h6 id="registration_fail"> <%= flash[:alert] %> </h6>
+          <fieldset>
+            <section>
+              <label class="input">
+                <i class="icon-prepend fa fa-user"></i>
+                <input type="id" name="user[employee_id]" placeholder="Employee ID" id="employee_id" autocomplete="off" placeholder="ID">
+                <b class="tooltip tooltip-bottom-right">Needed to enter the employee ID</b>
+              </label>
+            </section>
+            <section>
+              <label class="input">
+                <i class="icon-append fa fa-lock"></i>
+                <input type="password" name="user[password]" placeholder="Password" id="password" autocomplete="off">
+                <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
+              </label>
+            </section>
+            <section>
+              <label class="input">
+                <i class="icon-append fa fa-lock"></i>
+                <input type="password" name="user[password_confirmation]" placeholder="Confirm password" autocomplete="off">
+                <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
+              </label>
+            </section>
+          </fieldset>
+          <fieldset>
+            <div class="row">
+              <section class="col col-6">
+                <label class="input">
+                  <i class="icon-prepend fa fa-user"></i>
+                  <input type="text" name="user[first_name]" placeholder="First name">
+                </label>
+              </section>
+              <section class="col col-6">
+                <label class="input">
+                  <i class="icon-prepend fa fa-user"></i>
+                  <input type="text" name="user[last_name]" placeholder="Last name">
+                </label>
+              </section>
+            <section class="col col-6">
+              <label class="input">
+                <i class="icon-prepend fa fa-phone"></i>
+                <input type="text" name="user[phone]" placeholder="Phone number" id="phone_number" autocomplete="off">
+              </label>
+              </section>
+            <section class="col col-6">
+                <label class="select">
+                  <select name="user[position]">
+                    <option value="0" selected="" disabled="">Position</option>
+                    <option value="owner">Owner</option>
+                    <option value="manager">Manager</option>
+                    <option value="store associate">Store Associate</option>
+                  </select> <i></i>
+              </label>
+              </section>
+              </div>
+            <section>
+              <label class="input">
+                <input type="text" name="user[address]" placeholder="Address" id="street_name" autocomplete="off">
+              </label>
+            </section>
+            <div class="row">
+              <section class="col col-6">
+                <label class="input">
+                  <input type="text" name="user[city]" placeholder="City">
+                </label>
+              </section>
+              <section class="col col-6">
+                <label class="select">
+                  <select name="user[state]">
+                    <option value="0" selected="" disabled="">State</option>
+                     <%= @states.each do |state| %>
+                      <option value="<%=state %>"> <%= state %></option>
+                      <% end %>
+                  </select> <i></i>
+                </label>
+              </section>
+
+            </div>
+            <section>
+              <label class="input">
+                <input type="text" name="user[zip_code]" placeholder="Zip Code">
+              </label>
+            </section>  
+          </fieldset>             
+
+          <footer>
+            <button type="submit" class="btn btn-primary">
+              Add User
+            </button>
+          </footer>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

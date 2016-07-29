@@ -1,0 +1,81 @@
+<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+  <div class="well no-padding">
+    <h6 id="registration_fail"> <%= flash[:update] %> </h6>
+    <form class="smart-form client-form" id="smart-form-register" action="/organizations/<%= current_store.id%>" accept-charset="UTF-8" method="post">
+      <input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="put">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <header>Store Edit</header>
+      <fieldset>
+        <section>
+          <label class="input">
+            <i class="icon-append fa fa-envelope"></i>
+            <input type="email" name="organization[email]" id="email" autocomplete="off" value="<%= @email %>">
+            <b class="tooltip tooltip-bottom-right">Needed to enter the website</b>
+          </label>
+        </section>
+        <section>
+          <label class="input">
+            <i class="icon-append fa fa-lock"></i>
+            <input type="password" name="organization[password]" placeholder="Enter current password or New Password" id="password" autocomplete="off">
+            <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
+          </label>
+        </section>
+        <section>
+          <label class="input">
+            <i class="icon-append fa fa-lock"></i>
+            <input type="password" name="organization[password_confirmation]" placeholder="Confirm password" autocomplete="off">
+            <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
+          </label>
+        </section>
+      </fieldset>
+      <fieldset>
+        <section>
+          <label class="input">
+            <input type="text" name="organization[organization]" value="<%= @store %>" id="business_name" autocomplete="off">
+          </label>
+        </section>
+        <section>
+          <label class="input">
+            <input type="text" name="organization[phone]" value="<%= @phone %>" id="phone_number" autocomplete="off">
+          </label>
+        </section>
+        <section>
+          <label class="input">
+            <input type="text" name="organization[street_name]" value="<%= @address %>" id="street_name" autocomplete="off">
+          </label>
+        </section>
+        <div class="row">
+          <section class="col col-6">
+            <label class="input">
+              <input type="text" name="organization[city]" value="<%= @city%>">
+            </label>
+          </section>
+          <section class="col col-6">
+            <label class="select">
+              <select name="organization[state]">
+                <option value="<%= @state %>" selected="<%= @state%>" disabled=""><%= @state %></option>
+                <% @states.each do |state| %>
+                  <option value="<%= state %>"> <%= state %></option>
+                <% end %>
+              </select> <i></i>
+            </label>
+          </section>
+
+        </div>
+        <section>
+          <label class="input">
+            <input type="text" name="organization[zip_code]" value="<%= @zip_code %>">
+          </label>
+        </section>  
+      </fieldset>             
+
+      <footer>
+        <button type="submit" class="btn btn-primary">
+          Update
+        </button>
+      </footer>
+    </form>
+  </div>
+</div>
+
+
