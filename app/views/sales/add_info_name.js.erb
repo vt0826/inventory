@@ -1,0 +1,7 @@
+<% @inventory.each do |item| %>
+    if (document.getElementById("<%= @name %>").value == "<%= item.product_name %>" ){
+      $('#sale_sku_<%=@row%>').val("<%= item.sku %>")
+      $('#current_stock_<%=@row%>').val("<%= item.quantity %>")
+      $('#item_cost_<%=@row%>').val("<%= item.retail_price %>")
+  };
+<% end %>

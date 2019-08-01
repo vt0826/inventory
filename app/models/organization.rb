@@ -1,6 +1,10 @@
 class Organization < ActiveRecord::Base
   
   has_many :users
+  has_many :supplies
+  has_many :companies
+  has_many :purchases
+  has_many :orders
 
   attr_accessor :password
   validates_presence_of :email, :password, :organization, :phone, :street_name, :city, :state, :zip_code

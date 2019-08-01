@@ -1,0 +1,75 @@
+<div class="well no-padding">
+  <form action="/relationships" method="POST" id="smart-wwform-register" class="smart-form client-form">
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+    <input name="contacts[organization_id]" value= <%= current_store.id %> type="hidden">
+    <header> Add new Contact </header>
+    
+    <fieldset>
+      <div class="row">
+        <section class="col col-6">
+          <label class="input">
+            <p>First Name</p>
+            <input type="text" name="contacts[first_name]" autocomplete="off">
+            <b class="tooltip tooltip-bottom-right">First Name</b>
+          </label>
+        </section>
+        <section class="col col-6">
+          <label class="input">
+            <p>Last Name</p>
+            <input type="text" name="contacts[last_name]" autocomplete="off">
+            <b class="tooltip tooltip-bottom-right">Last Namew</b>
+          </label>
+        </section>
+        <section class="col col-6">
+          <label class="input">
+            <p>Department</p>
+            <input type="text" name="contacts[department]" autocomplete="off">
+            <b class="tooltip tooltip-bottom-right">Department</b>
+          </label>
+        </section>
+        <section class="col col-6">
+          <label class="input">
+            <p>Title</p>
+            <input type="text" name="contacts[title]" autocomplete="off">
+            <b class="tooltip tooltip-bottom-right">Title</b>
+          </label>
+        </section>
+        <section class="col col-6">
+          <label class="input">
+            <p>Phone Number</p>
+            <input type="text" name="contacts[phone_number]" autocomplete="off">
+            <b class="tooltip tooltip-bottom-right">Phone</b>
+          </label>
+        </section>
+        <section class="col col-6">
+          <label class="input">
+            <p>Cell Number</p>
+            <input type="text" name="contacts[cell_number]" autocomplete="off">
+            <b class="tooltip tooltip-bottom-right">Cell</b>
+          </label>
+        </section>
+      </div>
+      <section>
+        <label class="input">
+          <p>Email</p>
+          <input type="email" name="contacts[email]" autocomplete="off">
+          <b class="tooltip tooltip-bottom-right">Email</b>
+        </label>
+      </section>
+      <section>
+        <label class="textarea">
+          <p>Note</p>
+          <textarea rows="5"  name="contacts[note]"></textarea> 
+          <b class="tooltip tooltip-bottom-right">Note</b>
+        </label>
+      </section>
+    </fieldset>
+    
+    <footer>
+      <button type="submit" class="btn btn-primary">
+        Add
+      </button>
+    </footer>
+  </form>
+</div>
+

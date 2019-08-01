@@ -1,0 +1,30 @@
+alert("hihihi")
+<% @company.each do |supplier| %>
+  if (document.getElementById("purchase_supplier").value == "<%= supplier.name %>"){
+    alert("ggigi")
+    $("#supplier_address").html("<%= supplier.address %>")
+    $("#supplier_email").html("<%= supplier.email %>")
+    $("#purchase_company_id").val("<%= supplier.id %>")
+    var purchase =document.getElementById("purchase_supplier").value  
+    alert("<%= supplier.id  %>")
+    alert("hihihi")
+  };
+<% end %>
+<% @inventory.each do |item| %>
+    if (document.getElementById("purchase_sku").value == "<%= item.sku %>" ){
+    $("#item_cost").val("<%= item.buy_price %>")
+    $("#current_stock").val("<%= item.quantity %>")
+    $("#purchase_name").val("<%= item.product_name %>")
+    $("#purchase.sku").val("<%= item.sku %>")
+  };
+<% end %>
+
+<% @inventory.each do |item| %>
+    if (document.getElementById("purchase_name").value == "<%= item.product_name %>" ){
+    $("#item_cost").val("<%= item.buy_price %>")
+    $("#current_stock").val("<%= item.quantity %>")
+    $("#purchase_name").val("<%= item.product_name %>")
+    $("#purchase.sku").val("<%= item.sku %>")
+
+  };
+<% end %>

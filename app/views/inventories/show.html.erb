@@ -1,0 +1,75 @@
+
+<div class="well no-padding">
+  <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+    <form action="/inventories" method="POST" id="smart-wwform-register" class="smart-form client-form">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <input name="user[store_name]" value= <%= current_store.organization %> type="hidden">
+      <input name="inventories[organization_id]" value= <%= current_store.id %> type="hidden">
+      <header> Inventory Info </header>
+      <div class= "row">
+        <fieldset>
+          <section class="col col-8">
+            <label class="input">
+              <p>Product Name</p>
+              <input type="product_name" name="inventories[product_name]" value="<%= @inventory.product_name%>" autocomplete="off" readonly>
+            </label>
+          </section>
+          <section class="col col-8">
+            <label class="input">
+              <p>SKU</p>
+              <input type="number" name="inventories[sku]" value="<%= @inventory.sku%>" autocomplete="off" readonly>
+            </label>
+          </section>
+          <section class="col col-8">
+            <label class="input">
+              <p>Supplier</p>
+              <input type="text" name="inventories[supplier]" value="<%= @inventory.supplier%>" autocomplete="off" readonly>
+            </label>
+          </section>
+          <section class="col col-8">
+            <label class="input">
+              <p>Product Type</p>
+              <input type="text" name="inventories[product_type]" value="<%= @inventory.product_type%>" autocomplete="off" readonly>
+            </label>
+          </section>
+          <section class="col col-8">
+            <label class="input">
+              <p>Brand</p>
+              <input type="text" name="inventories[brand]" value="<%= @inventory.brand%>" autocomplete="off" readonly>
+            </label>
+          </section>
+          <section class="col col-8">
+            <label class="textarea">
+              <p>Product Description</p>
+              <textarea rows="5"  name="inventories[product_description]" readonly> <%= @inventory.product_description%> </textarea> 
+            </label>
+          </section>
+          <div class= "row"></div>
+          <section class="col col-4">
+            <label class="input">
+              <p>Buy Price</p>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                <input type="text" name="inventories[buy_price]" value="<%= @inventory.buy_price%>" readonly>
+              </div>
+            </label>
+          </section>
+          <section class="col col-4">
+            <label class="input">
+              <p>Retail Price</p>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                <input type="text" name="inventories[retail_price]" value="<%= @inventory.retail_price%>" readonly >
+              </div>
+            </label>
+          </section>
+        </fieldset> 
+      </div>
+      <footer>
+        <%= link_to "Delete", inventory_path(@inventory.id),data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-primary"%>
+        <%= link_to "Edit", edit_inventory_path(@inventory.id), class: "btn btn-primary" %>
+      </footer>
+    </form>
+  </div>
+</div>
+

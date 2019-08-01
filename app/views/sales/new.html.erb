@@ -1,0 +1,200 @@
+ <% content_for :ribbon do %>
+  <div id="ribbon">
+    <span class="ribbon-button-alignment">
+      <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+        <i class="fa fa-refresh"></i>
+      </span>
+    </span>
+
+    <ol class="breadcrumb">
+      <li>Home</li>
+      <li>New Order</li>
+    </ol>
+  </div>
+<% end %>
+
+<div class="jarviswidget" id="wid-id-8" data-widget-editbutton="false" data-widget-custombutton="false">
+  <div>
+    <div class="jarviswidget-editbox"></div>
+    <div class="widget-body no-padding">
+
+    <form action="/sales" method="POST" id="sale" class="smart-form">
+        <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+        <input name="sales[organization_id]" value= <%= current_store.id %> type="hidden">
+        <input name="sales[po_number]" value= <%= @so_number %> type="hidden">
+        <input name="sales[status]" value= "Order Placed" type="hidden">
+        <input name="sales[total_amount]" type="hidden" id="form_total">
+        <input name="sales[company_id]" type="hidden" id="customer_company_id">
+
+
+        <fieldset>
+          <div class="row">
+            
+            <section class="col col-3">
+              <label class="supplier">
+                <p class="sale_label">Customer:</p>
+                <input type="text" name="sales[supplier]" id="sale_customer" autocomplete="off" data-source="<%= @company.order(:name).map(&:name) %>" >
+                <b class="tooltip tooltip-bottom-right">First Name</b>
+              </label>
+            </section>
+
+            <section class="col col-3">
+              <label class="input">
+                <p class="sale_label">Delivery Address:</p>
+                <p id=customer_address></p>
+              </label>
+            </section>
+
+
+            <section class="col col-3">
+              <label class="input">
+                <p class="sale_label">Reference number:</p>
+                <p id=po_number><%=@so_number%></p>
+              </label>
+            </section>
+            <section class="col col-3">
+              <label class="input">
+                <p class="sale_label">Date:</p>
+                <p id="today_date"></p>
+              </label>
+              <label class="input">
+                <p class="sale_label">Email:</p>
+                <p id="customer_email"></p>
+              </label>
+            </section>
+
+          </div>
+        </fieldset>
+        <fieldset>
+          <div class="table-responsive">
+            <table class="table table-hover" id="myTable" >
+              <thead>
+                <tr>
+                  <th>Sku #</th>
+                  <th>Item Name</th>
+                  <th>Quantity</th>
+                  <th>Current Stock</th>
+                  <th>Item Cost($)</th>
+                  <th>Total Cost($)</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr id="row0">
+                  <td>
+                    <input type="text" name="sales[sku][]" autocomplete="off" id="sale_sku_1" data-row= 1  data-sku="<%= @inventory.order(:sku).map(&:sku) %>">
+                  </td>
+                  <td>
+                    <input type="text" name="sales[item_name][]" autocomplete="off" id="sale_name_1" data-row=1 data-product-name="<%= @inventory.order(:product_name).map(&:product_name) %>">
+                  </td>
+                  <td>
+                    <input type="text" name="sales[quantity][]" class="quantity" autocomplete="off" id="sale_quantity_1" data-row=1>
+                  </td>
+                  <td>
+                    <input type="number" autocomplete="off" id="current_stock_1">
+                  </td>
+                  <td>
+                    <input type="number" autocomplete="off" id="item_cost_1">
+                  </td>
+                  <td>
+                    <input type="number" name="sales[total_cost][]" autocomplete="off" id="total_cost_1">
+                  </td>
+
+                </tr>  
+              </tbody>
+            </table>
+            <div class="col-sm-12">
+              <div class="invoice-sum-total pull-right">
+                <h3><strong>Total: <span class="text-success" id="sale_total">$ 0.00</span></strong></h3>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+<div id="add_contact">
+<%= link_to raw('<i class="fa fa-plus" aria-hidden="true"></i> Add another item' ), sales_add_row_path(:total_amount=>@total_amount ),  :method => :post ,remote:true,  id: "create_purchase" %>
+          </div>
+
+        <footer>
+          <button type="submit" class="btn btn-primary"> Create </button>
+        </footer>
+      </form>
+    </div>
+  </div>
+</div>
+
+<% content_for :scripts do %>
+  <script>
+    document.getElementById("today_date").innerHTML= new Date().toLocaleDateString() ; 
+
+      var article =  $('#sale_customer').data('source') 
+      var sku =  $('#sale_sku_1').data('sku') 
+      var productName =  $('#sale_name_1').data('product-name') 
+      var row =  $('#sale_sku_1').data('row') 
+      var name = "sale_sku_1" 
+      var item_name = "sale_name_1"
+
+      $('#sale_customer').autocomplete({
+        source: article, 
+        select: function(e, ui) {  
+          $.ajax({
+            type: 'POST',
+            dataType: 'script',
+            url: '/sales/add_info'
+            });
+        }
+
+      });
+      $('#sale_sku_1').autocomplete({
+        source: sku,
+        select: function(e, ui) {  
+          $.ajax({
+            type: 'POST',
+            dataType: 'script',
+            data: {row: row, name: name},
+            url: '/sales/add_info'
+            });
+        }
+
+      });
+      $('#sale_name_1').autocomplete({
+        source: productName,
+        select: function(e, ui) {  
+          $.ajax({
+            type: 'POST',
+            dataType: 'script',
+            data: {row:row, name:item_name },
+            url: '/sales/add_info_name'
+            });
+        }
+      });
+
+  $( "#sale_quantity_1" ).change(function() {
+    var quantityVal = document.getElementById("sale_quantity_1").value 
+    var currentStock = document.getElementById("current_stock_1").value
+    var itemCost = document.getElementById("item_cost_1").value
+    var afterStock = Number(currentStock) - Number(quantityVal) 
+    var totalCost = Number(quantityVal) *  Number (itemCost)
+
+
+    $('#after_stock_1').val( afterStock );
+    $('#total_cost_1').val( totalCost );
+      
+    $.ajax({
+      type: 'POST',
+      dataType: 'script',
+      data: {total_cost: totalCost },
+      url: '/sales/total_amount'
+    });
+  }); 
+
+  $( "#current_stock" ).change(function() {
+    var quantity = document.getElementById("quantity").value 
+    var currentStock = document.getElementById("current_stock").value
+    var afterStock = Number(quantity) + Number(currentStock) 
+    $('#after_stock').val( afterStock );
+  }); 
+
+
+
+  </script>
+<% end%>

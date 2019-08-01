@@ -1,0 +1,203 @@
+ <% content_for :ribbon do %>
+  <div id="ribbon">
+    <span class="ribbon-button-alignment">
+      <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+        <i class="fa fa-refresh"></i>
+      </span>
+    </span>
+
+    <ol class="breadcrumb">
+      <li>Home</li>
+      <li><%=link_to "Stock control", purchases_path %> </li>
+      <li>New Purcahse Order</li>
+    </ol>
+  </div>
+<% end %>
+
+<div class="jarviswidget" id="wid-id-8" data-widget-editbutton="false" data-widget-custombutton="false">
+  <div>
+    <div class="jarviswidget-editbox"></div>
+    <div class="widget-body no-padding">
+
+    <form action="/purchases" method="POST" id="purchase" class="smart-form">
+        <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+        <input name="user[store_name]" value= <%= current_store.organization %> type="hidden">
+        <input name="purchases[organization_id]" value= <%= current_store.id %> type="hidden">
+        <input name="purchases[po_number]" value= <%= @po_number %> type="hidden">
+        <input name="purchases[status]" value= "Order Placed" type="hidden">
+        <input name="purchases[total_amount]" type="hidden" id="form_total">
+        <input name="purchases[company_id]" type="hidden" id="purchase_company_id">
+
+        <fieldset>
+          <div class="row">
+            <section class="col col-3">
+              <label class="supplier">
+                <p>Supplier</p>
+                <input type="text" name="purchases[supplier]" id="purchase_supplier" autocomplete="off" data-source="<%= @company.order(:name).map(&:name) %>" >
+                <b class="tooltip tooltip-bottom-right">First Name</b>
+              </label>
+            </section>
+
+            <section class="col col-3">
+              <label class="input">
+                <p class="purchase_label">Supplier Address:</p>
+                <p id=supplier_address></p>
+              </label>
+            </section>
+
+            <section class="col col-3">
+              <label class="input">
+                <p class="purchase_label">Reference number:</p>
+                <p id=po_number><%=@po_number%></p>
+              </label>
+            </section>
+            <section class="col col-3">
+              <label class="input">
+                <p class="purchase_label">Date:</p>
+                <p id="today_date"></p>
+              </label>
+              <label class="input">
+                <p class="purchase_label">Email:</p>
+                <p id="supplier_email"></p>
+              </label>
+            </section>
+
+          </div>
+        </fieldset>
+        <fieldset>
+          <div class="table-responsive">
+            <table class="table table-hover" id="myTable" >
+              <thead>
+                <tr>
+                  <th>Sku #</th>
+                  <th>Item Name</th>
+                  <th>Quantity</th>
+                  <th>Current Stock</th>
+                  <th>After Stock</th>
+                  <th>Item Cost($)</th>
+                  <th>Total Cost($)</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr id="row0">
+                  <td>
+                    <input type="text" name="purchases[sku][]" autocomplete="off" id="purchase_sku_1" data-row= 1  data-sku="<%= @inventory.order(:sku).map(&:sku) %>">
+                  </td>
+                  <td>
+                    <input type="text" name="purchases[item_name][]" autocomplete="off" id="purchase_name_1" data-row=1 data-product-name="<%= @inventory.order(:product_name).map(&:product_name) %>">
+                  </td>
+                  <td>
+                    <input type="text" name="purchases[quantity][]" class="quantity" autocomplete="off" id="purchase_quantity_1" data-row=1>
+                  </td>
+                  <td>
+                    <input type="number" autocomplete="off" id="current_stock_1">
+                  </td>
+                  <td>
+                    <input type="number" autocomplete="off" id="after_stock_1" >
+                  </td>
+                  <td>
+                    <input type="number" autocomplete="off" id="item_cost_1">
+                  </td>
+                  <td>
+                    <input type="number" name="purchases[total_cost][]" autocomplete="off" id="total_cost_1">
+                  </td>
+
+                </tr>  
+              </tbody>
+            </table>
+            <div class="col-sm-12">
+              <div class="invoice-sum-total pull-right">
+                <h3><strong>Total: <span class="text-success" id="purchase_total">$ 0.00</span></strong></h3>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+<div id="add_contact">
+<%= link_to raw('<i class="fa fa-plus" aria-hidden="true"></i> Add another item' ), purchases_add_row_path(:id=>1, :total_amount=>@total_amount ),  :method => :post ,remote:true,  id: "create_purchase" %>
+          </div>
+
+        <footer>
+          <button type="submit" class="btn btn-primary"> Create </button>
+        </footer>
+      </form>
+    </div>
+  </div>
+</div>
+
+<% content_for :scripts do %>
+  <script>
+    document.getElementById("today_date").innerHTML= new Date().toLocaleDateString() ; 
+
+      var article =  $('#purchase_supplier').data('source') 
+      var sku =  $('#purchase_sku_1').data('sku') 
+      var productName =  $('#purchase_name_1').data('product-name') 
+      var row =  $('#purchase_sku_1').data('row') 
+      var name = "purchase_sku_1" 
+      var item_name = "purchase_name_1"
+
+      $('#purchase_supplier').autocomplete({
+        source: article, 
+        select: function(e, ui) {  
+          $.ajax({
+            type: 'POST',
+            dataType: 'script',
+            url: '/purchases/add_info'
+            });
+        }
+
+      });
+      $('#purchase_sku_1').autocomplete({
+        source: sku,
+        select: function(e, ui) {  
+          $.ajax({
+            type: 'POST',
+            dataType: 'script',
+            data: {row: row, name: name},
+            url: '/purchases/add_info'
+            });
+        }
+
+      });
+      $('#purchase_name_1').autocomplete({
+        source: productName,
+        select: function(e, ui) {  
+          $.ajax({
+            type: 'POST',
+            dataType: 'script',
+            data: {row:row, name:item_name },
+            url: '/purchases/add_info_name'
+            });
+        }
+      });
+
+  $( "#purchase_quantity_1" ).change(function() {
+    var quantityVal = document.getElementById("purchase_quantity_1").value 
+    var currentStock = document.getElementById("current_stock_1").value
+    var itemCost = document.getElementById("item_cost_1").value
+    var afterStock = Number(quantityVal) + Number(currentStock) 
+    var totalCost = Number(quantityVal) *  Number (itemCost)
+
+
+    $('#after_stock_1').val( afterStock );
+    $('#total_cost_1').val( totalCost );
+      
+    $.ajax({
+      type: 'POST',
+      dataType: 'script',
+      data: {total_cost: totalCost },
+      url: '/purchases/total_amount'
+    });
+  }); 
+
+  $( "#current_stock" ).change(function() {
+    var quantity = document.getElementById("quantity").value 
+    var currentStock = document.getElementById("current_stock").value
+    var afterStock = Number(quantity) + Number(currentStock) 
+    $('#after_stock').val( afterStock );
+  }); 
+
+
+
+  </script>
+<% end%>

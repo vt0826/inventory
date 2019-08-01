@@ -1,0 +1,90 @@
+<div class="jarviswidget" id="wid-id-8" data-widget-editbutton="false" data-widget-custombutton="false">
+  <header>
+    <span class="widget-icon"> <i class="fa fa-info"></i> </span>
+    <h2>Inentory Info</h2>
+  </header>
+
+  <div>
+    <div class="jarviswidget-editbox"></div>
+    <div class="widget-body no-padding">
+
+      <form action="/inventories" method="POST" id="inventory_info" class="smart-form">
+        <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+        <input name="user[store_name]" value= <%= current_store.organization %> type="hidden">
+        <input name="inventories[organization_id]" value= <%= current_store.id %> type="hidden">
+
+        <fieldset>
+          <div class="row">
+            <section class="col col-6">
+              <label class="label">Product Name</label>
+              <label class="input">
+                <i class="icon-append fa fa-list-ol"></i>
+                  <input type="product_name" name="inventories[product_name]" value="<%= @inventory.product_name%>" autocomplete="off" readonly>
+              </label>
+            </section>
+            <section class="col col-6">
+              <label class="label">SKU#</label>
+              <label class="input">
+                <i class="icon-append fa fa-list-ol"></i>
+                  <input type="number" name="inventories[sku]" value="<%= @inventory.sku%>" autocomplete="off" readonly>
+              </label>
+            </section>
+          </div>
+
+          <div class="row">
+            <section class="col col-6">
+              <label class="input">
+                <p>Buy Price</p>
+                  <input type="text" name="inventories[buy_price]" value="<%= number_to_currency(@inventory.buy_price)%>" readonly>
+              </label>
+            </section>
+            <section class="col col-6">
+              <label class="input">
+                <p>Retail Price</p>
+                  <input type="text" name="inventories[retail_price]" value="<%= number_to_currency(@inventory.retail_price)%>" readonly >
+              </label>
+            </section>
+          </div>
+
+          <section>
+            <label class="label">Product Type</label>
+            <label class="input">
+              <i class="icon-append fa fa-tag"></i>
+              <input type="text" name="inventories[product_type]" value="<%= @inventory.product_type%>" autocomplete="off" readonly>
+            </label>
+            </label>
+          </section>
+          <section>
+            <label class="label">Supplier</label>
+            <label class="input">
+              <i class="icon-append fa fa-user"></i>
+              <input type="text" name="inventories[product_type]" value="<%= @inventory.supplier%>" autocomplete="off" readonly>
+            </label>
+            </label>
+          </section>
+          <section>
+            <label class="label">Brand</label>
+            <label class="input">
+              <i class="icon-append fa fa-tag"></i>
+              <input type="text" name="inventories[product_type]" value="<%= @inventory.brand%>" autocomplete="off" readonly>
+            </label>
+            </label>
+          </section>
+          <section>
+            <label class="label">Product Description</label>
+            <label class="textarea">
+              <i class="icon-append fa fa-comment"></i>
+              <textarea rows="4"  name="inventories[product_description]" readonly> <%= @inventory.product_description%> </textarea> 
+            </label>
+          </section>
+        </fieldset>
+
+        <footer>
+          <%= link_to "Delete", inventory_path(@inventory.id.to_i),data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-primary"%>
+          <%= link_to "Edit", edit_inventory_path(@inventory.id.to_i), method: :get, remote: true, class: "btn btn-primary" %>
+        </footer>
+      </form>
+    </div>
+  </div>
+</div>
+

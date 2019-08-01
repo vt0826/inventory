@@ -1,0 +1,16 @@
+<% @company.each do |supplier| %>
+  if (document.getElementById("purchase_supplier").value == "<%= supplier.name %>"){
+    $("#supplier_address").html("<%= supplier.address %>")
+    $("#supplier_email").html("<%= supplier.email %>")
+    $("#purchase_company_id").val("<%= supplier.id %>")
+
+  };
+<% end %>
+
+<% @inventory.each do |item| %>
+    if (document.getElementById("<%= @name %>").value == "<%= item.sku %>" ){
+      $('#purchase_name_<%=@row%>').val('<%= item.product_name %>')
+      $('#current_stock_<%=@row%>').val("<%= item.quantity %>")
+      $('#item_cost_<%=@row%>').val("<%= item.buy_price %>")
+  };
+<% end %>

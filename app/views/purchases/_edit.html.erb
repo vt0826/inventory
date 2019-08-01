@@ -1,0 +1,72 @@
+<div class="well no-padding">
+  <form action="/purchases/ <%=@purchase.id %>" method="POST" id="smart-wwform-register" class="smart-form client-form">
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+    <input name="purchases[organization_id]" value= <%= current_store.id %> type="hidden">
+     <input type= "hidden" name="_method" value="patch">
+
+     <header> <%=@purchase.po_number %> </header>
+    
+    <fieldset>
+      <section>
+        <p>Current Status</p>
+        <label class="select">
+          <select name="purchases[status]">
+            <option value="<%= @purchase.status %>" selected="<%= @purchase.status %>"> <%= @purchase.status %> </option>
+            <option value="Shipped">Shipped</option>
+            <option value="Delivered">Delivered</option>
+          </select> <i></i> 
+        </label>
+      </section>
+      <section>
+        <label class="input">
+          <p>Company Name</p>
+          <input type="text" name="purchases[name]" value=" @purchase.name %>"  autocomplete="off">
+          <b class="tooltip tooltip-bottom-right">Comapny Name</b>
+        </label>
+      </section>
+      <section>
+        <label class="input">
+          <p>Company Address</p>
+          <input type="text" name="purchases[address]" value=" @purchase.address %>" autocomplete="off">
+          <b class="tooltip tooltip-bottom-right">Address</b>
+        </label>
+      </section>
+      <section>
+        <label class="input">
+          <p>Company Website</p>
+          <input type="text" name="purchases[website]" value=" @purchase.website %>" autocomplete="off">
+          <b class="tooltip tooltip-bottom-right">Website</b>
+        </label>
+      </section>
+      <section>
+        <label class="input">
+          <p>Compnay Email</p>
+          <input type="email" name="purchases[email]" value=" @purchase.email %>" autocomplete="off">
+          <b class="tooltip tooltip-bottom-right">Email</b>
+        </label>
+      </section>
+      <section>
+        <label class="input">
+          <p>Compnay Telephone Number</p>
+          <input type="tel" name="purchases[phone]" value=" @purchase.phone %>" autocomplete="off">
+          <b class="tooltip tooltip-bottom-right">Phone</b>
+        </label>
+      </section>
+      <section>
+        <label class="textarea">
+          <p>Company Description</p>
+          <textarea rows="5"  name="purchases[description]" value=" @purchase.description %>"  ></textarea> 
+          <b class="tooltip tooltip-bottom-right">Description</b>
+        </label>
+      </section>
+    </fieldset>
+    
+    <footer>
+       link_to "Delete", relationship_path(@purchase.id.to_i),data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-primary",id: "delete"  %>
+      <button type="submit" class="btn btn-primary">
+        Edit
+      </button>
+    </footer>
+  </form>
+</div>
+

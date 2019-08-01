@@ -18,6 +18,7 @@ class SessionsController < ApplicationController
       @organization = Organization.authenticate(params[:email], params[:password])
       if @organization
         session[:store_id] = @organization.id
+        session[:store]= @organization.organization
         redirect_to organization_path(session[:store_id])
       else
         flash[:alert] = "There was a problem logging you in."
@@ -28,6 +29,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    session[:user_id]=nil
+    session[:store]=nil
     session[:store_id]=nil
     redirect_to "/"
   end

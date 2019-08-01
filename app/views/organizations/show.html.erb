@@ -1,1 +1,61 @@
-this is show
+<% content_for :ribbon do %>
+  <div id="ribbon">
+    <span class="ribbon-button-alignment">
+      <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+        <i class="fa fa-refresh"></i>
+      </span>
+    </span>
+    <ol class="breadcrumb">
+      <li>Home</li><li>Store inFo</li><li>Bootstrap Editors</li>
+    </ol>
+  </div>
+<% end %>
+
+
+<div class="well no-padding">
+  <h6 id="registration_fail"> <%= flash[:update] %> </h6>
+  <form class="smart-form client-form" id="smart-form-register" action="/organizations/<%= current_store.id%>" accept-charset="UTF-8" method="post">
+    <input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="put">
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+    <header>Store Info</header>
+    <fieldset>
+      <section>
+        <label class="input">
+          <input type="text" name="organization[organization]" value="<%= @store %>" id="business_name" autocomplete="off" readonly>
+        </label>
+      </section>
+      <section>
+        <label class="input">
+          <input type="text" name="organization[phone]" value="<%= @phone %>" id="phone_number" autocomplete="off" readonly>
+        </label>
+      </section>
+      <section>
+        <label class="input">
+          <input type="text" name="organization[street_name]" value="<%= @address %>" id="street_name" autocomplete="off" readonly>
+        </label>
+      </section>
+      <div class="row">
+        <section class="col col-6">
+          <label class="input">
+            <input type="text" name="organization[city]" value="<%= @city%>" readonly>
+          </label>
+        </section>
+        <section class="col col-6">
+          <label class="input">
+              <input type="text" name="organization[state]" value="<%= @state%>" readonly>
+            </select> <i></i>
+          </label>
+        </section>
+
+      </div>
+      <section>
+        <label class="input">
+          <input type="text" name="organization[zip_code]" value="<%= @zip_code %>" readonly>
+        </label>
+      </section>  
+    </fieldset>             
+
+  </form>
+</div>
+
+

@@ -1,0 +1,31 @@
+
+<%= row_id="row#{rand(10..10000)}"%>
+<tr id="<%= row_id %>" >
+  <td>
+    <input type="text" name="purchases[sku][]" autocomplete="off" class="new_sku" id="purchase_sku_<%= row_id %>" data-row=<%= row_id %> data-sku='<%= @inventory.order(:sku).map(&:sku) %>' > 
+  </td>
+  <td>
+    <input type="text" name="purchases[item_name][]" autocomplete="off" class="new_name "id="purchase_name_<%= row_id %>" data-row=<%= row_id %> data-product-name="<%= @inventory.order(:product_name).map(&:product_name) %>" >
+  </td>
+  <td>
+    <input type="text" name="purchases[quantity][]" autocomplete="off" class="quantity" id="purchase_quantity_<%= row_id %>" data-row=<%= row_id %> >
+  </td>
+  <td>
+    <input type="text" autocomplete="off" id="current_stock_<%= row_id %>">
+  </td>
+  <td>
+    <input type="text" autocomplete="off" id="after_stock_<%= row_id %>">
+  </td>
+  <td>
+    <input type="text" autocomplete="off" id="item_cost_<%= row_id %>"  >
+  </td>
+  <td>
+    <input type="text" name="purchases[total_cost][]" autocomplete="off" id="total_cost_<%= row_id %>" >
+  </td>
+
+  <td>
+    <%= link_to raw('<i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>' ), purchases_remove_row_path(:id=>1,:row_id=>row_id ), :method=>:post, remote:true, class: "purchase_delete", id:"purchase_delete_#{row_id}" ,:data =>{:row => row_id }  %>
+  </td>
+</tr>
+
+

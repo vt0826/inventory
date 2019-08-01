@@ -82,18 +82,7 @@
       </div>
   <!-- end projects dropdown -->
 <% end %>
-  <section id="top-right">
-     <!-- @if (@Model is HelperResult)
-      {
-          @Model
-      }
-      else
-      {
-          <div class="pull-right">
-              @Html.Partial("_TopRight")
-          </div>
-          }-->
-          <%= render :partial => "topright" %>
-
+<section id="top-right">
+    <%= render :partial => "topright" %>
   </section>
 </header>

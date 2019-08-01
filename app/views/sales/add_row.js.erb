@@ -1,0 +1,94 @@
+$("#myTable").append("<%= escape_javascript (render partial: 'add_row')%>");
+$(function(){
+
+  $('.new_sku').click(function(){
+    var name= $(this).attr('id') ;
+    var article =  $('#'+name).data('sku') 
+    var row =  $('#'+name).data('row')
+    $('#'+name).autocomplete({
+      source: article, 
+      select: function(e, ui) {  
+        $.ajax({
+          type: 'POST',
+          dataType: 'script',
+          data: {row: row, name: name},
+          url: '/sales/add_info'
+          });
+        }
+    });
+  });
+
+  $('.new_name').click(function(){
+    var name= $(this).attr('id') ;
+    var article =  $('#'+name).data('sku') 
+    var row =  $('#'+name).data('row')
+    $('#'+name).autocomplete({
+      source: article, 
+      select: function(e, ui) {  
+        $.ajax({
+          type: 'POST',
+          dataType: 'script',
+          data: {row: row, name: name},
+          url: '/sales/add_info_name'
+          });
+        }
+    });
+  });
+
+
+  $('.new_name').click(function(){
+    var name= $(this).attr('id') ;
+    var product =  $('#'+name).data('product-name') 
+    $('#'+name).autocomplete({
+      source: product 
+    });
+   });
+
+
+  $('.quantity').click(function(){
+    var name = $(this).attr('id') ;
+    var row =  $('#'+name).data('row')
+    var stock = '#current_stock_'+row
+    var quantity = 'sale_quantity_'+row
+    var currentStock = 'current_stock_'+row
+    var itemCost = 'item_cost_'+row
+
+    $("#"+name).change(function(){
+      var quantityVal = document.getElementById(quantity).value 
+      var currentStockVal = document.getElementById(currentStock).value
+      var itemCostVal = document.getElementById(itemCost).value
+      var afterStock = Number(currentStockVal) - Number(quantityVal)  
+      var totalCost = Number(quantityVal) *  Number (itemCostVal)
+
+      $('#after_stock_'+row).val( afterStock );
+      $('#total_cost_'+row).val( totalCost )
+      
+      $.ajax({
+          type: 'POST',
+          dataType: 'script',
+          data: {total_cost: totalCost },
+          url: '/sales/total_amount'
+      });
+    });
+  });
+  
+  
+  $('.purchase_delete').click(function(){
+    var name = $(this).attr('id') ;
+    var row =  $('#'+name).data('row');
+    var totalCost = 'total_cost_'+row;
+    var amount = document.getElementById(totalCost).value;
+    var negative = "-"
+    var amount = negative.concat(amount)
+    $.ajax({
+          type: 'POST',
+          dataType: 'script',
+          data: {total_cost: amount },
+          url: '/sales/total_amount'
+      });
+
+
+    });
+
+});
+

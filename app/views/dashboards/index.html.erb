@@ -1,0 +1,117 @@
+<% content_for :ribbon do %>
+<!-- RIBBON -->
+<div id="ribbon">
+
+				<span class="ribbon-button-alignment">
+					<span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+						<i class="fa fa-refresh"></i>
+					</span>
+				</span>
+
+  <ol class="breadcrumb">
+    <li>Home</li><li>Dashboard</li>
+  </ol>
+  <!-- end breadcrumb -->
+
+  <!-- You can also add more buttons to the
+  ribbon for further usability
+
+  Example below:
+
+  <span class="ribbon-button-alignment pull-right">
+  <span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+  <span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+  <span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+  </span> -->
+
+</div>
+<!-- END RIBBON -->
+<% end %>
+
+<div id="content">
+  <div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+      <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-home"></i> Dashboard <span>> My Dashboard</span></h1>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+      <ul id="sparks" class="">
+        <li class="sparks-info">
+          <h5> Revenue <span class="txt-color-blue"><%= number_to_currency(@this_month_sales) %></span></h5>
+          <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+            <% (0...@sales_each_month.length).each do |i|  %>
+              <%= @sales_each_month[i]%>,
+            <% end %>
+          </div>
+        </li>
+        <li class="sparks-info">
+          <h5> Net Profit <span class="txt-color-purple"><i class="fa fa-arrow-circle-up"></i>&nbsp;45%</span></h5>
+          <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
+            110,150,300,130,400,240,220,310,220,300, 270, 1222.00
+          </div>
+        </li>
+        <li class="sparks-info">
+          <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;<%=@this_month_orders%></span></h5>
+          <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+            <% (0...@orders_each_month.length).each do |i|  %>
+              <%= @orders_each_month[i]%>,
+            <% end %>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <section id="widget-grid" class="">
+    <div class="jarviswidget jarviswidget-color-blue" id="wid-id-4" data-widget-editbutton="false" data-widget-colorbutton="false">
+          <header>
+            <span class="widget-icon"> <i class="fa fa-check txt-color-white"></i> </span>
+            <h2> Alert </h2>
+          </header>
+          <div>
+            <div class="jarviswidget-editbox">
+              <div>
+                <label>Title:</label>
+                <input type="text" />
+              </div>
+            </div>
+
+            <div class="widget-body no-padding smart-form">
+              <h5 class="todo-group-title"><i class="fa fa-warning"></i> Low Stock Alert (<small class="num-of-tasks"><%=@low_stocks.length %></small>)</h5>
+              <ul id="sortable1" class="todo">
+                <% (0...@low_stocks.length).each do |i|  %>
+                  <li>
+                    <span class="handle"> 
+                      <label class="checkbox">
+                      </label> 
+                    </span>
+                      <p > 
+                        <strong>SKU# <%= @low_stocks[i].sku %> </strong>
+                        - In Stock: <%= @low_stocks[i].quantity %> 
+                      <span class="text-muted">Product Name: <%= @low_stocks[i].product_name%> </span>
+                    </p>
+                  </li>
+                <% end %>
+              </ul>
+              <h5 class="todo-group-title"><i class="fa fa-exclamation"></i> Puchase Orders Arrving (<small class="num-of-tasks"><%=@arriving.length%></small>)</h5>
+              <ul id="sortable2" class="todo">
+                <% (0...@arriving.length).each do |i| %>
+                <li>
+                  <span class="handle"><label class="checkbox"></label> </span>
+                  <p>
+
+                  <% @delivery= @shipping_time.to_i - (@date.to_date - @arriving[i].shipping_date.to_date).to_i%>
+                   <strong><%= @delivery%> days to arrive </strong>
+                   <strong><%= @arriving[i].po_number%></strong> -from 
+                   <small><%=@arriving[i].company.name %></small><span class="date">Nov 22, 2013</span>
+                  </p>
+                </li>
+              <%end%>
+              </ul>
+
+            </div>
+
+          </div>
+        </div>
+
+  </section>
+</div>

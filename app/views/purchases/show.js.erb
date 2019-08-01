@@ -1,0 +1,10 @@
+$("#modal-content").html("<%= escape_javascript (render partial: 'show')%>");
+<% @inventory.each do |item| %>
+    if (document.getElementById("purchase_name").value == "<%= item.product_name %>"){
+    $("#item_cost").val("<%= item.buy_price %>")
+    $("#current_stock").val("<%= item.quantity %>")
+    $("#purchase_name").val("<%= item.product_name %>")
+    $("#purchase_sku").val("<%= item.sku %>")
+  };
+<% end %>
+

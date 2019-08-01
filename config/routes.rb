@@ -1,10 +1,37 @@
 Rails.application.routes.draw do
+  get '/purchases/complete_index' => 'purchases#complete_index'
+  get '/purchases/complete' => 'purchases#complete' 
+  get 'purchases/shipment' => 'purchases#shipment'
+  get 'sales/shipment' => 'sales#shipment' 
+  get '/sales/return' => 'sales#return' 
+
   resources :users
   resources :organizations
   resources :sessions
   resources :inventories
+  resources :relationships
+  resources :dashboards
+  resources :contacts
+  resources :purchases
+  resources :sales
+
   get '/' => 'sessions#new'
-  post "/log_in" => "session#create"
+
+  post '/log_in' => 'session#create'
+  post '/purchases/add_row' => 'purchases#add_row'
+  post '/purchases/remove_row' => 'purchases#remove_row'
+  post '/purchases/add_info' => 'purchases#add_info'
+  post '/purchases/add_info_name' => 'purchases#add_info_name'
+  post '/purchases/total_amount' => 'purchases#total_amount'
+  post '/purchases/add_complete' => 'purchases#add_complete' 
+
+  post '/sales/add_row' => 'sales#add_row'
+  post '/sales/remove_row' => 'sales#remove_row'
+  post '/sales/add_info' => 'sales#add_info'
+  post '/sales/add_info_name' => 'sales#add_info_name'
+  post '/sales/total_amount' => 'sales#total_amount'
+
+
   delete "/log_out" => "sessions#destroy"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

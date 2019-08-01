@@ -57,7 +57,7 @@
                 <label class="select">
                   <select name="organization[state]">
                     <option value="0" selected="" disabled="">State</option>
-                    <% @states.each do |state| %>
+                    <% us_states.each do |state| %>
                       <option value="<%= state %>"> <%= state %></option>
                     <% end %>
                   </select> <i></i>

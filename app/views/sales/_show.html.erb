@@ -1,0 +1,164 @@
+<div class="widget no-padding">
+  <form action="/purchases" method="POST" id="purchase" class="smart-form">
+    <h4> <%= @sale.po_number%> </h4>
+    <fieldset>
+      <div class="row">
+        <section class="col col-3">
+          <label class="input">
+            <p class="purchase_label" >Supplier:</p>
+            <p><%=@sale.company.name %> </p>
+          </label>
+          <label class="input">
+            <p class="purchase_label">Status:</p>
+            <p> <%=@sale.status  %> </p>
+          </label>
+        </section>
+
+        <section class="col col-3">
+          <label class="input">
+            <p class="purchase_label">Supplier Address:</p>
+            <p id=supplier_address><%=@sale.company.address %> </p>
+          </label>
+        </section>
+
+        <section class="col col-3">
+          <label class="input">
+            <p class="purchase_label">Supplier Email:</p>
+            <p> <%=@sale.company.email%> </p>
+          </label>
+          <label class="input">
+            <p class="purchase_label">Shipping Date:</p>
+            <p id="sale_shipping_date"><%=@sale.shipping_date.strftime("%B %d, %Y") if @sale.shipping_date? %></p>
+          </label>
+
+        </section>
+
+        <section class="col col-3">
+          <label class="input">
+            <p class="purchase_label">Order Date:</p>
+            <p id="today_date"><%=@sale.created_at.strftime("%B %d, %Y") %></p>
+          </label>
+          <label class="input">
+            <p class="purchase_label">Return Date:</p>
+            <p id="sale_shipping_date"><%=@sale.return_date.strftime("%B %d, %Y") if @sale.return_date? %></p>
+          </label>
+        </section>
+
+      </div>
+    </fieldset>
+    <fieldset>
+      <div class="table-responsive">
+        <table class="table table-hover" id="myTable" >
+          <thead>
+            <tr>
+              <th>Sku #</th>
+              <th>Item Name</th>
+              <th>Quantity</th>
+              <th>Total Cost($)</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% (0...@sale.sku.length).each do |i| %>
+              <tr>
+                <td> <%= @sale.sku[i] %> </td>
+                <td> <%= @sale.item_name[i] %> </td>
+                <td> <%= @sale.quantity[i] %> </td>
+                <td> <%= number_to_currency (@sale.total_cost[i]) %> </td>
+              </tr>
+             <% end %>
+            </tr>  
+          </tbody>
+        </table>
+        <div class="col-sm-12">
+          <div class="invoice-sum-total pull-right">
+            <h3><strong>Total: <span class="text-success" id="purchase_total"> <%= number_to_currency (@sale.total_amount)%> </span></strong></h3>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <footer>
+    </footer>
+  </form>
+</div>
+
+<% content_for :scripts do %>
+  <script>
+    document.getElementById("today_date").innerHTML= new Date().toLocaleDateString() ; 
+
+      var article =  $('#purchase_supplier').data('source') 
+      var sku =  $('#purchase_sku_1').data('sku') 
+      var productName =  $('#purchase_name_1').data('product-name') 
+      var row =  $('#purchase_sku_1').data('row') 
+      var name = "purchase_sku_1" 
+      var item_name = "purchase_name_1"
+
+      $('#purchase_supplier').autocomplete({
+        source: article, 
+        select: function(e, ui) {  
+          $.ajax({
+            type: 'POST',
+            dataType: 'script',
+            url: '/purchases/add_info'
+            });
+        }
+
+      });
+      $('#purchase_sku_1').autocomplete({
+        source: sku,
+        select: function(e, ui) {  
+          $.ajax({
+            type: 'POST',
+            dataType: 'script',
+            data: {row: row, name: name},
+            url: '/purchases/add_info'
+            });
+        }
+
+      });
+      $('#purchase_name_1').autocomplete({
+        source: productName,
+        select: function(e, ui) {  
+          $.ajax({
+            type: 'POST',
+            dataType: 'script',
+            data: {row:row, name:item_name },
+            url: '/purchases/add_info_name'
+            });
+        }
+      });
+
+  $( "#purchase_quantity_1" ).change(function() {
+    var quantityVal = document.getElementById("purchase_quantity_1").value 
+    var currentStock = document.getElementById("current_stock_1").value
+    var itemCost = document.getElementById("item_cost_1").value
+    var afterStock = Number(quantityVal) + Number(currentStock) 
+    var totalCost = Number(quantityVal) *  Number (itemCost)
+
+
+    $('#after_stock_1').val( afterStock );
+    $('#total_cost_1').val( totalCost );
+      
+    $.ajax({
+      type: 'POST',
+      dataType: 'script',
+      data: {total_cost: totalCost },
+      url: '/purchases/total_amount'
+    });
+  }); 
+
+  $( "#current_stock" ).change(function() {
+    var quantity = document.getElementById("quantity").value 
+    var currentStock = document.getElementById("current_stock").value
+    var afterStock = Number(quantity) + Number(currentStock) 
+    $('#after_stock').val( afterStock );
+  }); 
+
+
+
+  </script>
+<% end%>
+
+
+

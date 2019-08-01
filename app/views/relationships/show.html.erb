@@ -1,0 +1,318 @@
+ <% content_for :ribbon do %>
+  <div id="ribbon">
+    <span class="ribbon-button-alignment">
+      <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+        <i class="fa fa-refresh"></i>
+      </span>
+    </span>
+
+    <ol class="breadcrumb">
+      <li>Home</li>
+      <li>Relationships</li>
+      <li><%=@company.name.capitalize %></li>
+    </ol>
+  </div>
+<% end %>
+
+
+<div class="jarviswidget" id="wid-id-8" data-widget-editbutton="false" data-widget-custombutton="false">
+  <div>
+    <div class="jarviswidget-editbox"></div>
+    <div class="widget-body no-padding">
+
+    <form action="/inventories" method="POST" id="inventory_info" class="smart-form">
+        <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+        <input name="user[store_name]" value= <%= current_store.organization %> type="hidden">
+        <input name="inventories[organization_id]" value= <%= current_store.id %> type="hidden">
+
+        <fieldset>
+          <div class="row">
+            <section class="col col-2">
+               <%= link_to raw('<i class="fa fa-backward" aria-hidden="true"></i> Back' ), relationships_path(@company.id.to_i) %>
+            </section>
+            <section class="col col-1">
+            <h2><%= @company.name %></h2>
+            </section>
+            <section class="col col-3">
+              <dl class="dl-horizontal">
+                <dt>Type:</dt>
+                  <dd> <%= @company.role %><dd>
+                <dt>Website:</dt>
+                  <dd><%= @company.website%></dd>
+                <dt>Email:</dt>
+                  <dd><%= @company.email%></dd>
+              </dl>
+            </section>
+            <section class="col col-3">
+              <dl class="dl-horizontal">
+                <dt>Phone:</dt>
+                  <dd> <%= @company.phone %><dd>
+                <dt>Address:</dt>
+                  <dd><%= @company.address%></dd>
+                <dt>Description:</dt>
+                  <dd><%= @company.description%></dd>
+              </dl>
+            </section>
+            <section class="col col-2"></section>
+            <section class="col col-1">
+              <%= link_to "Edit", edit_relationship_path(@company.id.to_i), method: :get, remote: true, class: "btn btn-primary", id: "company_edit" %>
+            </section>
+          </div>
+        </fieldset>
+        <fieldset>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Title</th>
+                    <th>Department</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Cell</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% (0...@contact.length).each do |i| %> 
+                  <tr>
+                    <td><%= link_to "#{@contact[i].first_name + " " + @contact[i].last_name }", edit_contact_path(id: @contact[i].id, company_id: @company.id),  method: :get, remote: true, class: "link_color" %></td>
+                    <td><%= link_to "#{@contact[i].title}", edit_contact_path(id: @contact[i].id, company_id: @company.id),  method: :get, remote: true, class: "link_color" %></td>
+                    <td><%= link_to "#{@contact[i].department}", edit_contact_path(id: @contact[i].id, company_id: @company.id),  method: :get, remote: true, class: "link_color" %></td>
+                    <td><%= link_to "#{@contact[i].email}", edit_contact_path(id: @contact[i].id, company_id: @company.id),  method: :get, remote: true, class: "link_color" %></td>
+                    <td><%= link_to "#{@contact[i].phone_number}", edit_contact_path(id: @contact[i].id, company_id: @company.id),  method: :get, remote: true, class: "link_color" %></td>
+                    <td><%= link_to "#{@contact[i].cell_number}", edit_contact_path(id: @contact[i].id, company_id: @company.id),  method: :get, remote: true, class: "link_color" %></td>
+                    <% #link_to "Info", user_path(@profile), id: "setSelect", class: "btn btn-default btn-sm" %>
+                    <%# link_to "Update", edit_user_path(@users[i].id), id: "setSelect", class: "btn btn-default btn-sm" %>
+                    <%# link_to 'Delete', user_path(@users[i].id),data: {:confirm => 'Are you sure?'}, :method => :delete, id: "setSelect", class: "btn btn-default btn-sm"%>
+                    </tr>  
+                <% end %>  
+              </tbody>
+            </table>
+          </div>
+        </fieldset>
+
+        <footer>
+        <!-- link_to "Delete", relationship_path(@company.id.to_i),data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-primary"%>-->
+        <!-- link_to "Edit", edit_relationship_path(@company.id.to_i), method: :get, remote: true, class: "btn btn-primary" %>i-->
+          <div id="add_contact">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <%= link_to "Add contacts", new_contact_path(:company_id => @company.id),  method: :get, remote:true, class:"link_color" %>
+          </div>
+        </footer>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div id="myModal" class="modal">
+  <div id="modal-content">
+    <span class="close">&times;</span>
+  </div>
+</div>
+
+<% content_for :scripts do %>
+
+  <script>
+    function myFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+  </script>
+
+  <script>
+    var modal = document.getElementById('myModal');
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+
+    $( ".link_color" ).click(function() {
+      modal.style.display = "block";
+    });
+   $( "#company_edit" ).click(function() {
+      modal.style.display = "block";
+    });
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
+  <script type="text/javascript">
+    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+    $(document).ready(function() {
+      pageSetUp();
+      /* // DOM Position key index //
+       l - Length changing (dropdown)
+       f - Filtering input (search)
+       t - The Table! (datatable)
+       i - Information (records)
+       p - Pagination (paging)
+       r - pRocessing
+       < and > - div elements
+       <"#id" and > - div with an id
+       <"class" and > - div with a class
+       <"#id.class" and > - div with an id and class
+
+       Also see: http://legacy.datatables.net/usage/features
+       */
+
+      /* BASIC ;*/
+      var responsiveHelper_dt_basic = undefined;
+      var responsiveHelper_datatable_fixed_column = undefined;
+      var responsiveHelper_datatable_col_reorder = undefined;
+      var responsiveHelper_datatable_tabletools = undefined;
+      var breakpointDefinition = {
+        tablet : 1024,
+        phone : 480
+      };
+      $('#dt_basic').dataTable({
+        "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"+
+        "t"+
+        "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
+        "autoWidth" : true,
+        "oLanguage": {
+          "sSearch": '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'
+        },
+        "preDrawCallback" : function() {
+          // Initialize the responsive datatables helper once.
+          if (!responsiveHelper_dt_basic) {
+            responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#dt_basic'), breakpointDefinition);
+          }
+        },
+        "rowCallback" : function(nRow) {
+          responsiveHelper_dt_basic.createExpandIcon(nRow);
+        },
+        "drawCallback" : function(oSettings) {
+          responsiveHelper_dt_basic.respond();
+        }
+      });
+      /* END BASIC */
+      /* COLUMN FILTER  */
+      var otable = $('#datatable_fixed_column').DataTable({
+        //"bFilter": false,
+        //"bInfo": false,
+        //"bLengthChange": false
+        //"bAutoWidth": false,
+        //"bPaginate": false,
+        //"bStateSave": true // saves sort state using localStorage
+        "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6 hidden-xs'f><'col-sm-6 col-xs-12 hidden-xs'<'toolbar'>>r>"+
+        "t"+
+        "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
+        "autoWidth" : true,
+        "oLanguage": {
+          "sSearch": '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'
+        },
+        "preDrawCallback" : function() {
+          // Initialize the responsive datatables helper once.
+          if (!responsiveHelper_datatable_fixed_column) {
+            responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper($('#datatable_fixed_column'), breakpointDefinition);
+          }
+        },
+        "rowCallback" : function(nRow) {
+          responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
+        },
+        "drawCallback" : function(oSettings) {
+          responsiveHelper_datatable_fixed_column.respond();
+        }
+      });
+
+      // custom toolbar
+      $("div.toolbar").html('<div class="text-right"><%= image_tag 'logo.png', alt: 'SmartAdmin', style: 'width: 111px; margin-top: 3px; margin-right: 10px;' %></div>');
+      // Apply the filter
+      $("#datatable_fixed_column thead th input[type=text]").on( 'keyup change', function () {
+        otable
+          .column( $(this).parent().index()+':visible' )
+          .search( this.value )
+          .draw();
+      } );
+      /* END COLUMN FILTER */
+      /* COLUMN SHOW - HIDE */
+      $('#datatable_col_reorder').dataTable({
+        "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'C>r>"+
+        "t"+
+        "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+        "autoWidth" : true,
+        "oLanguage": {
+          "sSearch": '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'
+        },
+        "preDrawCallback" : function() {
+          // Initialize the responsive datatables helper once.
+          if (!responsiveHelper_datatable_col_reorder) {
+            responsiveHelper_datatable_col_reorder = new ResponsiveDatatablesHelper($('#datatable_col_reorder'), breakpointDefinition);
+          }
+        },
+        "rowCallback" : function(nRow) {
+          responsiveHelper_datatable_col_reorder.createExpandIcon(nRow);
+        },
+        "drawCallback" : function(oSettings) {
+          responsiveHelper_datatable_col_reorder.respond();
+        }
+      });
+
+      /* END COLUMN SHOW - HIDE */
+
+      /* TABLETOOLS */
+      $('#datatable_tabletools').dataTable({
+
+        // Tabletools options:
+        //   https://datatables.net/extensions/tabletools/button_options
+        "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>"+
+        "t"+
+        "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+        "oLanguage": {
+          "sSearch": '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'
+        },
+        "oTableTools": {
+          "aButtons": [
+            "copy",
+            "csv",
+            "xls",
+            {
+              "sExtends": "pdf",
+              "sTitle": "SmartAdmin_PDF",
+              "sPdfMessage": "SmartAdmin PDF Export",
+              "sPdfSize": "letter"
+            },
+            {
+              "sExtends": "print",
+              "sMessage": "Generated by SmartAdmin <i>(press Esc to close)</i>"
+            }
+          ],
+          "sSwfPath": "js/plugin/datatables/swf/copy_csv_xls_pdf.swf"
+        },
+        "autoWidth" : true,
+        "preDrawCallback" : function() {
+          // Initialize the responsive datatables helper once.
+          if (!responsiveHelper_datatable_tabletools) {
+            responsiveHelper_datatable_tabletools = new ResponsiveDatatablesHelper($('#datatable_tabletools'), breakpointDefinition);
+          }
+        },
+        "rowCallback" : function(nRow) {
+          responsiveHelper_datatable_tabletools.createExpandIcon(nRow);
+        },
+        "drawCallback" : function(oSettings) {
+          responsiveHelper_datatable_tabletools.respond();
+        }
+      });
+      /* END TABLETOOLS */
+    })
+  </script>
+<% end %>

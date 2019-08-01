@@ -1,0 +1,78 @@
+<div class="well no-padding">
+  <form action="/contacts/<%= @contact.id %>" method="POST" id="smart-wwform-register" class="smart-form client-form">
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+    <input name="contacts[organization_id]" value= <%= current_store.id %> type="hidden">
+    <input type= "hidden" name="_method" value="patch">
+
+    <header> Edit Contact </header>
+    
+    <fieldset>
+      <div class="row">
+        <section class="col col-6">
+          <label class="input">
+            <p>First Name</p>
+            <input type="text" name="contacts[first_name]" value="<%= @contact.first_name%>"  autocomplete="off">
+            <b class="tooltip tooltip-bottom-right">First Name</b>
+          </label>
+        </section>
+        <section class="col col-6">
+          <label class="input">
+            <p>Last Name</p>
+            <input type="text" name="contacts[last_name]" value="<%= @contact.last_name %>" autocomplete="off">
+            <b class="tooltip tooltip-bottom-right">Last Namew</b>
+          </label>
+        </section>
+        <section class="col col-6">
+          <label class="input">
+            <p>Department</p>
+            <input type="text" name="contacts[department]" value="<%= @contact.department %>" autocomplete="off">
+            <b class="tooltip tooltip-bottom-right">Department</b>
+          </label>
+        </section>
+        <section class="col col-6">
+          <label class="input">
+            <p>Title</p>
+            <input type="text" name="contacts[title]" value="<%= @contact.title %>" autocomplete="off">
+            <b class="tooltip tooltip-bottom-right">Title</b>
+          </label>
+        </section>
+        <section class="col col-6">
+          <label class="input">
+            <p>Phone Number</p>
+            <input type="text" name="contacts[phone_number]" value="<%= @contact.phone_number %>" autocomplete="off">
+            <b class="tooltip tooltip-bottom-right">Phone</b>
+          </label>
+        </section>
+        <section class="col col-6">
+          <label class="input">
+            <p>Cell Number</p>
+            <input type="text" name="contacts[cell_number]" value="<%= @contact.cell_number %>" autocomplete="off">
+            <b class="tooltip tooltip-bottom-right">Cell</b>
+          </label>
+        </section>
+      </div>
+      <section>
+        <label class="input">
+          <p>Email</p>
+          <input type="email" name="contacts[email]" value="<%= @contact.email %>" autocomplete="off">
+          <b class="tooltip tooltip-bottom-right">Email</b>
+        </label>
+      </section>
+      <section>
+        <label class="textarea">
+          <p>Note</p>
+          <textarea rows="5"  name="contacts[note]" value="<%= @contact.email %>" ></textarea> 
+          <b class="tooltip tooltip-bottom-right">Note</b>
+        </label>
+      </section>
+    </fieldset>
+    
+    <footer>
+      <%= link_to "Delete", contact_path(id: @contact.id.to_i, company_id: @company_id),data: {:confirm => 'Are you sure?'}, :method => :delete, class: "btn btn-primary", id:"delete"%>
+      <button type="submit" class="btn btn-primary">
+        Edit
+      </button>
+    </footer>
+  </form>
+</div>
+

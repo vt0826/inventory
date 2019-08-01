@@ -1,0 +1,140 @@
+<% content_for :ribbon do %>
+  <div id="ribbon">
+    <span class="ribbon-button-alignment">
+      <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+        <i class="fa fa-refresh"></i>
+      </span>
+    </span>
+
+    <ol class="breadcrumb">
+      <li>Home</li>
+      <li>Inventroy</li>
+      <li>New Inventory</li>
+    </ol>
+  </div>
+<% end %>
+
+<div id="content">
+  <article class="col-sm-12 col-md-12 col-lg-9">
+    <div class="jarviswidget" id="wid-id-8" data-widget-editbutton="false" data-widget-custombutton="false">
+      <header>
+        <span class="widget-icon"> <i class="fa fa-plus-square-o"></i> </span>
+        <h2>New Inventory</h2>
+      </header>
+
+    <div>
+      <div class="widget-body no-padding">
+        <div id="flashes">
+          <% if flash[:notice] %>
+            <p id="flash_notice" class="inventory_messages"><%= flash[:notice] %></p>
+            <%= javascript_tag "$( '#flash_notice' ).fadeOut(2000) ;" %>
+            <%= flash[:notice]=nil %>
+          <% end %>
+          <% if flash[:error] || flash[:errors] %>
+            <p id="flash_errors" class="inventory_messages"><%= flash[:error] || flash[:errors] %></p>
+            <%= javascript_tag "$( '#flash_errors' ).fadeOut(2500) ;" %>
+          <% end %>
+        </div>
+
+        <form action="/inventories" method="POST" id="smart-wwform-register" class="smart-form client-form">
+          <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+          <input name="user[store_name]" value= <%= current_store.organization %> type="hidden">
+          <input name="inventories[organization_id]" value= <%= current_store.id %> type="hidden">
+
+            <fieldset>
+              <section>
+                <label class="input">
+                  <p>Product Name</p>
+                  <input type="product_name" name="inventories[product_name]" autocomplete="off">
+                  <b class="tooltip tooltip-bottom-right">Product Name</b>
+                </label>
+              </section>
+              <section>
+                <label class="input">
+                  <p>SKU</p>
+                  <input type="number" name="inventories[sku]" autocomplete="off">
+                  <b class="tooltip tooltip-bottom-right">SKU #</b>
+                </label>
+              </section>
+              <section>
+                <label class="input">
+                  <p>Supplier</p>
+                  <select name="inventories[company_id]" id="company_select" >
+                    <option></option>
+                    <% (0...@company.length).each do |i|%>
+                      <option value="<%=@company[i].id %>"><%=@company[i].name %></option>
+                    <% end %>
+                  </select>
+                  <b class="tooltip tooltip-bottom-right">Supplier Name</b>
+                </label>
+              </section>
+              <section>
+                <label class="input">
+                  <p>Product Type</p>
+                  <input type="text" name="inventories[product_type]" autocomplete="off">
+                  <b class="tooltip tooltip-bottom-right">Product Type</b>
+                </label>
+              </section>
+              <section>
+                <label class="input">
+                  <p>Brand</p>
+                  <input type="text" name="inventories[brand]" autocomplete="off">
+                  <b class="tooltip tooltip-bottom-right">Product Brand</b>
+                </label>
+              </section>
+              <section>
+                <label class="textarea">
+                  <p>Product Description</p>
+                  <textarea rows="5"  name="inventories[product_description]"></textarea> 
+                  <b class="tooltip tooltip-bottom-right">Product Description</b>
+                </label>
+              </section>
+              <div class= "row">
+              <section class="col col-4">
+                <label class="input">
+                  <p>Buy Price</p>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                    <input type="text" name="inventories[buy_price]">
+                  </div>
+                </label>
+              </section>
+              <section class="col col-4">
+                <label class="input">
+                  <p>Retail Price</p>
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                    <input type="text" name="inventories[retail_price]">
+                  </div>
+                </label>
+              </section>
+              <section class="col col-4">
+                <label class="input">
+                  <p>Quantity</p>
+                    <input type="text" name="inventories[quantity]">
+                </label>
+              </section>
+            </div>
+          </fieldset> 
+            
+          <footer>
+            <%= link_to "Inventory Index", inventories_path, class: "btn btn-primary"%>
+            <button type="submit" class="btn btn-primary"> Add Inventroy </button>
+          </footer>
+        </form>
+      </div>
+    </div>
+  </article>
+  
+  <article class="col-sm-12 col-md-12 col-lg-3">
+    <div>
+      <div id="help_header">
+        <span><i class="fa fa-lightbulb-o fa-3x" aria-hidden="true"></i> </span>
+          Create a New Inventory
+      </div>
+        <h4>There are three different sections on this page: Product Details, Product Variants, and Product Pack Sizes.</h4>
+        <h3> NOTE</h3>
+        <h5>You will remain on this page after a successful save. You can click Inventory Index to review your entries. </h5>
+    </div>
+  </article>
+</div>
