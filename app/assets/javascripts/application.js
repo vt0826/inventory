@@ -108,8 +108,6 @@
 //= require plugin/markdown/bootstrap-markdown
 //= require plugin/superbox/superbox
 
-
-
 // Morris Chart Dependencies
 //= require plugin/morris/morris
 //= require plugin/morris/raphael
@@ -141,4 +139,4 @@
 //= require plugin/chartjs/chart
 //= require plugin/fullcalendar/jquery.fullcalendar
 
-
+//= require ckeditor/init
