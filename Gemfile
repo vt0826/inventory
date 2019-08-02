@@ -61,6 +61,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'jquery-ui-rails'
 gem 'ckeditor', '4.2.4'
 gem 'devise'
-
+gem 'actioncable'
 # I18n
 gem 'gettext_i18n_rails'
