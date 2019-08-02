@@ -21,3 +21,4 @@ Rails.application.config.assets.precompile +=
   %w(plugin/flot/jquery.flot.tooltip.min.js)
 Rails.application.config.assets.precompile += %w( demo.js )
 Rails.application.config.assets.precompile += %w( application.css application.js ckeditor/* )
+Rails.application.config.assets.precompile += [/^[-_a-zA-Z0-9]*\..*/]
