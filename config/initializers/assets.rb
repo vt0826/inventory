@@ -20,3 +20,4 @@ Rails.application.config.assets.precompile +=
 Rails.application.config.assets.precompile +=
   %w(plugin/flot/jquery.flot.tooltip.min.js)
 Rails.application.config.assets.precompile += %w( demo.js )
+Rails.application.config.assets.precompile += %w( application.css application.js ckeditor/* )
