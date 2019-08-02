@@ -6,7 +6,7 @@ gem 'activerecord_any_of'
 
 gem 'font-awesome-sass'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.8'
+gem 'rails', '4.2.4'
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
 gem 'pg', '~> 0.18'
@@ -61,6 +61,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'jquery-ui-rails'
 gem 'ckeditor', '4.2.4'
 gem 'devise'
-gem 'actioncable'
+gem 'actioncable', '~> 0.0.0'
 # I18n
 gem 'gettext_i18n_rails'
